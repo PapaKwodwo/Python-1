@@ -40,8 +40,22 @@ def solution(first_digit_occurrence: int = 1000) -> int:
     476
     >>> solution(50)
     237
+    >>> solution(20)
+    93
+    >>> solution(15)
+    69
+    >>> solution(10)
+    45
+    >>> solution(5)
+    21
+    >>> solution(4)
+    17
     >>> solution(3)
     12
+    >>> solution(2)
+    7
+    >>> solution(1)
+    1
     """
 
     if first_digit_occurrence < 1:
@@ -53,18 +67,20 @@ def solution(first_digit_occurrence: int = 1000) -> int:
     last_two_numbers = [last_number, new_number]
     sequenced_numbers = [1]
 
-    while len(str(last_two_numbers[last_number])) <= first_digit_occurrence:
-        output = last_two_numbers[last_number] + last_two_numbers[new_number]
+    if first_digit_occurrence != 1:
+        while len(str(last_two_numbers[last_number])) <= first_digit_occurrence:
+            output = last_two_numbers[last_number] + last_two_numbers[new_number]
 
-        if len(str(output)) == first_digit_occurrence:
-            break
+            sequenced_numbers.append(output)
 
-        last_two_numbers[last_number] = last_two_numbers[new_number]
+            if len(str(output)) == first_digit_occurrence:
+                break
 
-        last_two_numbers[new_number] = output
-        sequenced_numbers.append(output)
+            last_two_numbers[last_number] = last_two_numbers[new_number]
 
-    return len(sequenced_numbers) + 1
+            last_two_numbers[new_number] = output
+
+    return len(sequenced_numbers)
 
 
 if __name__ == "__main__":
